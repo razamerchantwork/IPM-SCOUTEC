@@ -32,7 +32,7 @@
 
 ---
 ## Task 3: **Increment Click Count and Redirect to original url and error handling**
-**Description**: Increment the click count for the shortened URL each time it is accessed.
+**Description**: Increment the click count for the shortened URL each time it is accessed.and when user copy the url and paste it to browser it should redirect user to orginal url if url expired or not found show the error page 
 
 ### Estimate:
 - **Estimated Time**: 40 minutes
@@ -41,6 +41,8 @@
   - Return the updated click count.
 
 ### Actual Time:
+- **Actual Time**: 30 minutes
+- **Reason for Deviation**: Completed faster due to efficient Redis command usage.
 
 ---
 ## Task 4: **Fetch All Shortened URLs**
@@ -54,5 +56,7 @@
   - Return the results in a structured format (array or collection).
 
 ### Actual Time:
+- **Actual Time**: 50 minutes
+- **Reason for Deviation**: Encountered some Redis key naming issues and additional debugging for handling empty collections.
 
 ---
