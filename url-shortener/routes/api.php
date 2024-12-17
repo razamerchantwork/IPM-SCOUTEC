@@ -16,3 +16,4 @@ use App\Http\Controllers\URLShortenerController;
 */
 
 Route::post('/shorten-url', [URLShortenerController::class, 'createShortenUrl']);
+Route::get('/shortened-urls', [URLShortenerController::class, 'fetchShortenedUrls']);

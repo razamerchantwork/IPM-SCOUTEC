@@ -27,5 +27,33 @@ class UrlShortenerController extends Controller
             return errorResponse($e->getMessage(), $e->getCode());
         }
     }
+   //resolve url
+   public function resolve(string $shortId)
+   {
+       try {
+           $urlData = $this->urlShortenerService->resolveUrl($shortId);
 
+           if (!$urlData) {
+               throw new \Exception('URL not found or expired');
+           }
+           return redirect()->to($urlData['url']);
+       } catch (\Exception $e) {
+           return view('error.url-not-found', ['message' => $e->getMessage()]);
+       }
+   }
+
+
+    // Fetch all URLs
+    public function fetchShortenedUrls()
+    {
+        try {
+            $urls = $this->urlShortenerService->fetchShortenedUrls();
+            if ($urls->isEmpty()) {
+                return successResponse([], 'No URLs found.');
+            }
+            return successResponse(ShortUrlResource::collection($urls), 'URLs fetched successfully.');
+        } catch (\Exception $e) {
+            return errorResponse($e->getMessage(), $e->getCode());
+        }
+    }
 }

@@ -20,4 +20,22 @@ class URLShortenerService
         return $this->urlRepository->create($url);
     }
 
+    public function resolveUrl(string $shortId): ?array
+    {
+        $url = $this->urlRepository->findOriginalUrl($shortId);
+
+        if ($url) {
+            $this->urlRepository->incrementClickCount($shortId);
+            return [
+                "url" => $url,
+            ];
+        }
+
+        return null;
+    }
+
+    public function fetchShortenedUrls()
+    {
+       return $this->urlRepository->fetchShortenedUrls();
+    }
 }

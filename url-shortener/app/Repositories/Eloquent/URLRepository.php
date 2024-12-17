@@ -49,6 +49,17 @@ class URLRepository implements URLRepositoryInterface
     }
 
     /**
+     * Increments the click count for the given short ID in Redis.
+     *
+     * @param string $shortId The shortened URL's ID.
+     * @return int The updated click count.
+     */
+    public function incrementClickCount(string $shortId): ?int
+    {
+        return Redis::incr("click_count:$shortId");
+    }
+
+    /**
      * Retrieves the click count for the given short ID from Redis.
      *
      * @param string $shortId The shortened URL's ID.
@@ -57,6 +68,34 @@ class URLRepository implements URLRepositoryInterface
     public function getClickCount(string $shortId): ?string
     {
         return Redis::get("click_count:$shortId");
+    }
+
+
+    /**
+     * Fetches all shortened URLs from Redis and returns their details as a collection.
+     *
+     * @return \Illuminate\Support\Collection A collection of objects containing the short ID, original URL, click count, and expiration time.
+     */
+    public function fetchShortenedUrls(): Collection
+    {
+        $data = [];
+        $keys = Redis::keys('short_url:*');
+
+        if (empty($keys)) {
+            return collect($data);
+        }
+        foreach ($keys as $key) {
+
+            $shortId = str_replace('laravel_database_short_url:', '', $key);
+
+            $data[] = (object) [
+                'short_id'     => $shortId,
+                'original_url'  => $this->findOriginalUrl($shortId),
+                'click_count'          => $this->getClickCount($shortId),
+                'expires_in'    => $this->getHumanReadableTtl($shortId),
+            ];
+        }
+        return collect($data);
     }
 
     /**

@@ -9,4 +9,7 @@ interface URLRepositoryInterface
 
     public function findOriginalUrl(string $shortId): ?string;
 
+    public function incrementClickCount(string $shortId): ?int;
+
+    public function fetchShortenedUrls(): Collection;
 }
