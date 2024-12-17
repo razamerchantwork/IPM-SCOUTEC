@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Repositories\Eloquent\URLRepository;
+use App\Repositories\Contracts\URLRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $this->app->bind(URLRepositoryInterface::class, URLRepository::class);
+
     }
 }
