@@ -5,16 +5,9 @@
 ### Actual Time:
 - **Actual Time**: 10 min
 
-## Task 2: **UI Creation**
-**Description**: Create UI, install required packages, 
+## Task 2: **UI Creation + API Integration**
+**Description**: Create UI, and integrate APIs, 
 ### Estimate:
-- **Estimated Time**: 15 min
+- **Estimated Time**: 30 min
 ### Actual Time:
-- **Actual Time**: 
-
-## Task 3: **API Integration**
-**Description**: Integrate APIs of backend, 
-### Estimate:
-- **Estimated Time**: 15 min
-### Actual Time:
-- **Actual Time**: 
+- **Actual Time**: 50 min 
