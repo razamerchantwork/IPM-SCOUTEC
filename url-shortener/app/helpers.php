@@ -1,11 +1,8 @@
 <?php
 
 if (! function_exists('successResponse')) {
-    function successResponse($data = [], $message = '', $paginate = FALSE, $code = 200)
+    function successResponse($data = [], $message = '',  $code = 200)
     {
-        if ($paginate == TRUE && is_object($data)) {
-            $data = paginate($data);
-        }
 
         $response = [
             'success' => true,
@@ -46,38 +43,4 @@ if (! function_exists('errorResponse')) {
     }
 }
 
-if (! function_exists('paginate')) {
-    function paginate($data = [])
-    {
 
-        $paginationArray = NULL;
-        if ($data != NULL) {
-            $paginationArray = array('list' => $data->items(), 'pagination' => []);
-            $paginationArray['pagination']['total'] = $data->total();
-            $paginationArray['pagination']['current'] = $data->currentPage();
-            $paginationArray['pagination']['first'] = 1;
-            $paginationArray['pagination']['last'] = $data->lastPage();
-            if ($data->hasMorePages()) {
-                if ($data->currentPage() == 1) {
-                    $paginationArray['pagination']['previous'] = 0;
-                } else {
-                    $paginationArray['pagination']['previous'] = $data->currentPage() - 1;
-                }
-                $paginationArray['pagination']['next'] = $data->currentPage() + 1;
-            } else {
-                $paginationArray['pagination']['previous'] = $data->currentPage() - 1;
-                $paginationArray['pagination']['next'] = $data->lastPage();
-            }
-            if ($data->lastPage() > 1) {
-                $paginationArray['pagination']['pages'] = range(1, $data->lastPage());
-            } else {
-                $paginationArray['pagination']['pages'] = [1];
-            }
-            $paginationArray['pagination']['from'] = $data->firstItem();
-            $paginationArray['pagination']['to'] = $data->lastItem();
-
-            return $paginationArray;
-        }
-        return $paginationArray;
-    }
-}
